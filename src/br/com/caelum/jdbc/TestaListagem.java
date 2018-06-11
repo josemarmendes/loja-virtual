@@ -11,7 +11,7 @@ public class TestaListagem {
 		ConnectionPool database = new ConnectionPool();
 
 		for (int i = 0; i < 100; i++) {
-			Connection connection = database.getConection();
+			Connection connection = database.getConnection();
 
 			Statement statement = connection.createStatement();
 			statement.execute("select * from Produto");

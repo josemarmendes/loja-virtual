@@ -9,20 +9,23 @@ import org.hsqldb.jdbc.JDBCPool;
 
 public class ConnectionPool {
 	
-	DataSource dataSource;
-	
-	ConnectionPool() {
+	private final DataSource dataSource;
+
+	public ConnectionPool() {
+		System.out.print("iniciando connection pool...");
 		JDBCPool pool = new JDBCPool();
 		pool.setUrl("jdbc:hsqldb:hsql://localhost/loja-virtual");
-		pool.setUser( "SA");
+		pool.setUser("SA");
 		pool.setPassword("");
-		this.dataSource = pool;
+		dataSource = pool;
+		System.out.println(" ok");
 	}
-
-	Connection getConection() throws SQLException {
-
-		Connection connection =  dataSource.getConnection();
+	
+	public Connection getConnection() throws SQLException {
+		System.out.print("adiquirindo conexão...");
+		Connection connection = dataSource.getConnection();
+		System.out.println(" ok");
 		return connection;
-	}
+	}	
 
 }

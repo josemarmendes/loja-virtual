@@ -1,4 +1,4 @@
-package br.com.caelum.jdbc;
+package br.caelum.jdbc.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.caelum.jdbc.modelo.Categoria;
 import br.com.caelum.jdbc.modelo.Produto;
 
 public class ProdutosDAO {
@@ -63,4 +64,16 @@ public class ProdutosDAO {
             }
         }
     }
+
+	public List<Produto> busca(Categoria categoria) throws SQLException {
+		List<Produto> produtos = new ArrayList<>();
+		String sql = "select * from Produto where categoria_id = ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+        	stmt.setInt(1, categoria.getId());
+        	stmt.execute();
+        	transformaResultadoEmProdutos(stmt, produtos);
+        }
+		return produtos;
+	}
 }
